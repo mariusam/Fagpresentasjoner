@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Fagkveld 2017-09-19</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-transition="convex">
+					<h2>Test ved Deploy</h2>
+					<h4>Case fra IF Waypoint</h4>
+					<aside class="notes">
+						Hei, jeg sitter på Waypoint. Har sittet der 4,5 år.
+						Nåverende løsning: Kjører vi bare tester ved bygg, men nye løsninger skaper nye problemer.
+					</aside>
+				</section>
+				<section data-transition="convex">
+					<section data-transition="convex">
+						<h2>Case</h2>	
+						<img data-src="case.svg" width="80%" height="80%">
+						<aside class="notes">	
+							<ul>
+								<li>Core, Legacy, kompliserte prosesser. Les/skriv går tregt. Flere SaveAndReload på store grafer, genererer 1000vis av db kall</li>
+								<li>Tjeneste A. Meldingstjeneste. Enkle Inserts. Continuous Deploy</li>
+								<li> Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper</li>
+								<li> Tjeneste A har en hale av eksterne avhenigheter</li>
+							</ul>
+						</aside>
+					</section>
+					<section data-transition="convex">
+							<h2>Hva vi måtte løse</h2>
+							<ul>
+								<li>Ingen kontroll på DB schema </li>
+								<li>Må vite at schema er kompatibelt</li>
+								<li>Må teste på deploy</li>
+							</ul>
+							<aside class="notes">
+								Tjeneste A må teste schema, siden Core tjenesten eier DB. To typer source control og deploy pipeline
+							</aside>						
+					</section>
+				</section>
+				</section>
+				<section data-transition="convex">
+					<section data-transition="convex">
+						<h2>Løsningen</h2>
+						<ul>
+							<li>Egen del av deployable som inneholder tester</li>
+							<li>Grønne tester før avinstalering av gammel versjon</li>
+						</ul>
+						<aside class="notes">
+							Ny måte å gjøre test på, ikke blitt gjort før på Waypoint	
+						</aside>
+					</section>
+					<section data-transition="convex">
+						<h2>Hva vi brukte</h2>
+						<ul>
+								<li>TeamCity</li>
+								<li>Nuget</li>
+								<li>Octopus Deploy</li>
+								<li>Cake</li>
+								<li>Nunit3</li>
+								<li>SQL insert/select</li>
+						</ul>
+						<aside class="notes">
+								
+						</aside>
+					</section>
+					<section data-transition="convex">
+							<h2>Utfordringer ved løsningen</h2>
+							<ul>
+								<li>DB rettigheter</li>
+								<li>Ingen sikkerhet mot ny deploy av core</li>
+							</ul>
+							<aside class="notes">
+									
+							</aside>
+					</section>
+				</section>
+				
+				<section data-transition="convex">
+					<section data-transition="convex">
+						<h1>Demo</h1>
+					</section>
+					<section data-transition="convex">
+							<img data-src="GreenTests.PNG" width="100%" height="100%">
+					</section>
+					<section data-transition="convex">
+							<img data-src="RedTests.PNG" width="100%" height="100%">
+					</section>
+					<section data-transition="convex">
+							<img data-src="RedTestsSummary.PNG" width="100%" height="100%">
+					</section>
+				</section>
+				<section data-transition="convex">
+						<section data-transition="convex">
+							<h2>Veien videre</h2>
+						</section>
+						<section data-transition="convex">
+							<h3>Consumer specific testing</h3>
+							<p class="fragment">Consumer lager tester</p>
+							<p class="fragment">Provider kjører tester</p>
+						</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

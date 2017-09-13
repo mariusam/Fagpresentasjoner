@@ -1,0 +1,35 @@
+Integrasjonstest under deploy
+	- Tester DB integrasjon. Sjekker at miljøet er kompatibel med deployen.
+
+Case	
+	- [Bilde]Core tjeneste, ny deployable (Tjeneste A) som bruker DB fra WP core
+		-Core, Legacy code, tunge kompliserte prosesser. Les og skrive operasjoner går tregt.
+			Flere SaveAndReload på store grafer, genererer 1000vis av db kall
+		-Tjeneste A. Meldingstjeneste. Enkle Inserts. Continuous Deploy
+	- Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper
+
+Hva vi må løse
+	- Ingen kontroll på DB schema fra tjeneste A, siden Core tjenesten eier DB
+		- Annen source controll 
+	- Må vite at schema er kompatibelt
+	- Må vite på deploy, siden hver pakke bare bygges en gang.
+
+Løsning
+	- TC -> Octopus deploy -> IntegrasjonsTest.nuget
+	- Alle tester grønne før man avinstalerer den kjørende tjenesten
+		-Gir tilbakemelding på hva som er endret
+		-Krav til testdekning for å være helt sikker
+Demo
+	[Demo]
+
+Utfordringer
+	- Ingen sikkerhet mot patch/redeploy av Core som endrer schema
+		-Kan kjøre testene i vha TimeOut Saga og stoppe tjenesten 
+	- Octopus tentakkel bruker må ha DB aksess
+		- Problematisk å kjøre script som annen bruker
+
+
+Videre
+	- Sikter på å teste meldings-/Apikontrakter
+	
+	
