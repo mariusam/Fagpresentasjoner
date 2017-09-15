@@ -1,35 +1,42 @@
 Integrasjonstest under deploy
-	- Tester DB integrasjon. Sjekker at miljøet er kompatibel med deployen.
+	- Tester DB integrasjon. Sjekker at miljï¿½et er kompatibel med deployen.
 
 Case	
 	- [Bilde]Core tjeneste, ny deployable (Tjeneste A) som bruker DB fra WP core
-		-Core, Legacy code, tunge kompliserte prosesser. Les og skrive operasjoner går tregt.
-			Flere SaveAndReload på store grafer, genererer 1000vis av db kall
+		-Core, Legacy code, tunge kompliserte prosesser. Les og skrive operasjoner gï¿½r tregt.
+			Flere SaveAndReload pï¿½ store grafer, genererer 1000vis av db kall
 		-Tjeneste A. Meldingstjeneste. Enkle Inserts. Continuous Deploy
 	- Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper
 
-Hva vi må løse
-	- Ingen kontroll på DB schema fra tjeneste A, siden Core tjenesten eier DB
+Hva vi mï¿½ lï¿½se
+	- Ingen kontroll pï¿½ DB schema fra tjeneste A, siden Core tjenesten eier DB
 		- Annen source controll 
-	- Må vite at schema er kompatibelt
-	- Må vite på deploy, siden hver pakke bare bygges en gang.
+	- Mï¿½ vite at schema er kompatibelt
+	- Mï¿½ vite pï¿½ deploy, siden hver pakke bare bygges en gang.
 
-Løsning
+Lï¿½sning
 	- TC -> Octopus deploy -> IntegrasjonsTest.nuget
-	- Alle tester grønne før man avinstalerer den kjørende tjenesten
-		-Gir tilbakemelding på hva som er endret
-		-Krav til testdekning for å være helt sikker
+	- Alle tester grï¿½nne fï¿½r man avinstalerer den kjï¿½rende tjenesten
+		-Gir tilbakemelding pï¿½ hva som er endret
+		-Krav til testdekning for ï¿½ vï¿½re helt sikker
 Demo
 	[Demo]
 
 Utfordringer
 	- Ingen sikkerhet mot patch/redeploy av Core som endrer schema
-		-Kan kjøre testene i vha TimeOut Saga og stoppe tjenesten 
-	- Octopus tentakkel bruker må ha DB aksess
-		- Problematisk å kjøre script som annen bruker
+		-Kan kjï¿½re testene i vha TimeOut Saga og stoppe tjenesten 
+	- Octopus tentakkel bruker mï¿½ ha DB aksess
+		- Problematisk ï¿½ kjï¿½re script som annen bruker
 
 
 Videre
-	- Sikter på å teste meldings-/Apikontrakter
+	- Sikter pï¿½ ï¿½ teste meldings-/Apikontrakter
 	
-	
+
+
+
+Ikke alltid man kan gjÃ¸re det som er rett, sÃ¥ da mÃ¥ man sikkre seg sÃ¥ godt som man kan.
+
+Kan teste andre ting, kalle web API osv
+
+Skille mellom Demo og Veien videre

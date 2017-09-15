@@ -26,11 +26,11 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-transition="convex">
-					<h2>Test ved Deploy</h2>
+					<h2>Environment testing</h2>
 					<h4>Case fra IF Waypoint</h4>
 					<aside class="notes">
 						Hei, jeg sitter på Waypoint. Har sittet der 4,5 år.
-						Nåverende løsning: Kjører vi bare tester ved bygg, men nye løsninger skaper nye problemer.
+						Mye gammel, men stadig nye ting med ny tankegang, men nye løsninger skaper nye problemer.
 					</aside>
 				</section>
 				<section data-transition="convex">
@@ -43,6 +43,7 @@
 								<li>Tjeneste A. Meldingstjeneste. Enkle Inserts. Continuous Deploy</li>
 								<li> Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper</li>
 								<li> Tjeneste A har en hale av eksterne avhenigheter</li>
+								<li>Det er ikke alltid man kan gjøre det som er rett, så da må man sikkre seg så godt man kan</li>
 							</ul>
 						</aside>
 					</section>
@@ -111,13 +112,22 @@
 					</section>
 				</section>
 				<section data-transition="convex">
+						<h2>Andre muligheter</h2>
+						<aside class="notes">
+								
+						</aside>
+				</section>
+				<section data-transition="convex">
 						<section data-transition="convex">
-							<h2>Veien videre</h2>
+							<h2>Hva mer vi kan gjøre</h2>
+							<aside class="notes">
+								Det er flere utfordringer ved avhenigheter, og det finnes andre metoder
+							</aside>	
 						</section>
 						<section data-transition="convex">
-							<h2>Pact</h2>
+							<h2>Consumer specific contract testing</h2>
 							<ul>
-								<li class="fragment">Consumer specific contract testing</li>
+								<li class="fragment">Pact</li>
 								<ul>
 									<li class="fragment">Consumer lager tester</li>
 									<li class="fragment">Provider kjører tester</li>
@@ -140,7 +150,8 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true }
 				]
 			});
 		</script>
