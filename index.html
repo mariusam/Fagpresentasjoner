@@ -29,7 +29,7 @@
 					<h2>Environment testing</h2>
 					<h4>Case fra IF Waypoint</h4>
 					<aside class="notes">
-						Hei, jeg sitter på Waypoint. Har sittet der 4,5 år.
+						Hei, jeg sitter på Waypoint.
 						Mye gammel, men stadig nye ting med ny tankegang, men nye løsninger skaper nye problemer.
 					</aside>
 				</section>
@@ -41,8 +41,8 @@
 							<ul>
 								<li>Core, Legacy, kompliserte prosesser. Les/skriv går tregt. Flere SaveAndReload på store grafer, genererer 1000vis av db kall</li>
 								<li>Tjeneste A. Meldingstjeneste. Enkle Inserts. Continuous Deploy</li>
-								<li> Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper</li>
-								<li> Tjeneste A har en hale av eksterne avhenigheter</li>
+								<li>Optimaliser insert. Erstatter egenskrevet ORmapper med Dapper</li>
+								<li>Tjeneste A har en hale av eksterne avhenigheter</li>
 								<li>Det er ikke alltid man kan gjøre det som er rett, så da må man sikkre seg så godt man kan</li>
 							</ul>
 						</aside>
@@ -67,8 +67,13 @@
 							<li>Egen del av deployable som inneholder tester</li>
 							<li>Grønne tester før avinstalering av gammel versjon</li>
 						</ul>
+					
 						<aside class="notes">
-							Ny måte å gjøre test på, ikke blitt gjort før på Waypoint	
+								<ul>
+									<li>Ny måte å gjøre test på, ikke blitt gjort før på Waypoint.</li>
+									<li>Enkel løsning, som er lett å vedlikeholde</li>
+								</ul>
+
 						</aside>
 					</section>
 					<section data-transition="convex">
@@ -92,7 +97,9 @@
 								<li>Ingen sikkerhet mot ny deploy av core</li>
 							</ul>
 							<aside class="notes">
-									
+									Octupus deploy bruker må ha rettigheter. Kanskje måten å gjør det på?</br>
+									Kan ikke kjøre scripts som en annen bruker</br>
+									Vanskelig å vite at core blir patchet. Kan kjøre tester i en timeout saga
 							</aside>
 					</section>
 				</section>
@@ -112,16 +119,17 @@
 					</section>
 				</section>
 				<section data-transition="convex">
-						<h2>Andre muligheter</h2>
+						<h2>Andre muligheter?</h2>
 						<aside class="notes">
-								
+								Kan teste api, iis sites, nServisbus køer osv<br/>
+								Setter krav til miljøet
 						</aside>
 				</section>
 				<section data-transition="convex">
 						<section data-transition="convex">
-							<h2>Hva mer vi kan gjøre</h2>
+							<h2>Kontrakter?</h2>
 							<aside class="notes">
-								Det er flere utfordringer ved avhenigheter, og det finnes andre metoder
+								Litt på siden av vår case. Kontraktsdeling er vanskelig, versjonering
 							</aside>	
 						</section>
 						<section data-transition="convex">
@@ -130,9 +138,33 @@
 								<li class="fragment">Pact</li>
 								<ul>
 									<li class="fragment">Consumer lager tester</li>
-									<li class="fragment">Provider kjører tester</li>
+									<li class="fragment">Provider kjører testene</li>
 								</ul>
 							</ul>
+							<aside class="notes">
+									En måte å løse problemt på. Krever litt oppsett
+							</aside>
+						</section>
+						<section data-transition="convex">
+								<img data-src="CSCT.PNG" width="60%" height="60%">
+						</section>
+						<section data-transition="convex">
+								<pre>
+									<code class="hljs" data-trim contenteditable>
+									IPactVerifier pactVerifier = new PactVerifier(config);
+									pactVerifier
+										.ProviderState($"{serviceUri}/provider-states")
+										.ServiceProvider("Something API", serviceUri)
+										.HonoursPactWith("Consumer")
+										.PactUri("..\\Consumer.Tests\\pacts\\consumer-something_api.json")
+										//Or
+										.PactUri("http://broker/pacts/provider/Api1/consumer/Consumer/latest") 
+										//Or
+										.PactUri("http://broker/pacts/provider/Api1/consumer/Consumer/latest", 
+													new PactUriOptions("someuser", "somepassword")) 
+										.Verify();
+									</code>
+								</pre>
 						</section>
 				</section>
 			</div>
