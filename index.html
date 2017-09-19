@@ -142,7 +142,7 @@
 								</ul>
 							</ul>
 							<aside class="notes">
-									En måte å løse problemt på. Krever litt oppsett
+									En måte å løse problemt på. Krever litt oppsett. 
 							</aside>
 						</section>
 						<section data-transition="convex">
@@ -150,21 +150,22 @@
 						</section>
 						<section data-transition="convex">
 								<pre>
-									<code class="hljs" data-trim contenteditable>
+									<code class="stretch"  data-trim contenteditable>
 									IPactVerifier pactVerifier = new PactVerifier(config);
 									pactVerifier
 										.ProviderState($"{serviceUri}/provider-states")
 										.ServiceProvider("Something API", serviceUri)
 										.HonoursPactWith("Consumer")
-										.PactUri("..\\Consumer.Tests\\pacts\\consumer-something_api.json")
+										.PactUri("..\\path\\to\\consumer-something_api.json")
 										//Or
-										.PactUri("http://broker/pacts/provider/Api1/consumer/Consumer/latest") 
-										//Or
-										.PactUri("http://broker/pacts/provider/Api1/consumer/Consumer/latest", 
-													new PactUriOptions("someuser", "somepassword")) 
+										.PactUri("url/to/Api/consumer/Consumer/latest") 
 										.Verify();
 									</code>
 								</pre>
+								<aside class="notes">
+									Oppsett for å hente siste tester </br>
+									Kan sende med brukerNavn og passord
+							</aside>
 						</section>
 				</section>
 			</div>
@@ -178,6 +179,9 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+				controls: false,
+				progress: true,
+
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
